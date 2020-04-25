@@ -9,7 +9,7 @@ on:
     branches: [ master ]
 
 env:
-  TEST: SHOULD SEE THIS
+  FILE_NAME: a.txt
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -25,6 +25,8 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
-      env:
-        TEST2: ${TEST} 
-      run: echo $TEST2
+      run: echo 'test' > a.txt
+    - uses: actions/upload-artifact@v1
+      with:
+        name: tag-kasten-${{ env.FILE_NAME }}.txt
+        path: a.txt
